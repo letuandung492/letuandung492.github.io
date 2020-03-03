@@ -9,7 +9,7 @@
 		$nav = $('#nav'), $nav_links = $nav.children('a')
 		$x = $('.cancel'), $overlay = $('.overlay'), $projects = $('.project'),
 		$Adyio = $('#Adyio'), $DFS = $('#DFS'), $EZPing = $('#EZPing'),
-		$Kronos = $('#Kronos'), $Gauss = $('#Gauss'), $CP-Notebook = $('#CP-Notebook');
+		$Kronos = $('#Kronos'), $Gauss = $('#Gauss'), $CPNotebook = $('#CPNotebook');
 
 	// Breakpoints.
 		breakpoints({
@@ -219,7 +219,7 @@
 				$EZPing.css('display', 'none');
 				$Kronos.css('display', 'none');
 				$Gauss.css('display', 'none');
-				$CP-Notebook.css('display', 'none');
+				$CPNotebook.css('display', 'none');
 			});
 
 
@@ -242,9 +242,9 @@
 					case 'aGauss':
 						$Gauss.css('display', 'block');
 						break;
-					case 'aCP-Notebook':
-						console.log($CP-Notebook);
-						$CP-Notebook.css('display', 'block');
+					case 'aCPNotebook':
+						console.log($CPNotebook);
+						$CPNotebook.css('display', 'block');
 						break;
 				}
 				$overlay.fadeTo('slow', 1);
