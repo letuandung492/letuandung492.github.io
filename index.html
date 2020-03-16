@@ -1,6 +1,30 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
+		<!-- Google Tag Manager -->
+		<script>(
+				function(w,d,s,l,i){
+					w[l]=w[l]||[];
+					w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+					var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:''
+					;j.async=true;
+					j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;
+					f.parentNode.insertBefore(j,f);
+				})(window,document,'script','dataLayer','GTM-TML8GCQ');
+		</script>
+		<!-- End Google Tag Manager -->
+
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-160806664-1"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'UA-160806664-1');
+		</script>
+
+
 		<title>Holla! :D</title>
 		<link rel="icon" href="images/icon.png">
 		<meta charset="utf-8" />
@@ -11,7 +35,11 @@
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="is-preload">
-		
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TML8GCQ"
+		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
 		<!-- particles.js container -->
 		<div id="particles-js"  style="position: fixed; width: 100%; height: 100%;"></div>
 		
@@ -147,6 +175,7 @@ retrieve new and long-tail images.
 						<a href="#" class="icon solid fa-home"><span>Home</span></a>
 						<a href="#about-me" class="icon solid fa-user"><span>About me</span></a>
 						<a href="#project" class="icon solid fa-folder"><span>Projects</span></a>
+						<a href="#blog" class="icon solid fa-blog"><span>Blogs</span></a>
 					</nav>
 
 				<!-- Main -->
@@ -213,6 +242,9 @@ retrieve new and long-tail images.
 										</div>
 									</div>
 								</section>
+								<a href="#project" class="jumplink pic">
+									<span class="arrow icon solid fa-chevron-right"><span>My projects</span></span>
+								</a>
 							</article>
 
 						<!-- Project -->
@@ -252,6 +284,14 @@ retrieve new and long-tail images.
 										</div>
 									</div>
 								</section>
+								<a href="#blogs" class="jumplink pic">
+									<span class="arrow icon solid fa-chevron-right"><span>My blogs</span></span>
+								</a>
+							</article>
+
+						<!-- Blogs -->
+							<article id="blog" class="panel">
+
 							</article>
 
 					</div>
