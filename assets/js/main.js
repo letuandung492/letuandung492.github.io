@@ -1,374 +1,374 @@
-(function($) {
+(function ($) {
 
-	var $window = $(window),
-		$body = $('body'),
-		$wrapper = $('#wrapper'),
-		$main = $('#main'),
-		$panels = $main.children('.panel'),
-		$practicles = $('#particles-js'),
-		$nav = $('#nav'), $nav_links = $nav.children('a')
-		$x = $('.cancel'), $overlay = $('.overlay'), $projects = $('.project'),
-		$Adyio = $('#Adyio'), $DFS = $('#DFS'), $EZPing = $('#EZPing'),
-		$Kronos = $('#Kronos'), $Gauss = $('#Gauss'), $CPNotebook = $('#CPNotebook');
+    var $window = $(window),
+        $body = $('body'),
+        $wrapper = $('#wrapper'),
+        $main = $('#main'),
+        $panels = $main.children('.panel'),
+        $practicles = $('#particles-js'),
+        $nav = $('#nav'), $nav_links = $nav.children('a')
+    $x = $('.cancel'), $overlay = $('.overlay'), $projects = $('.project'),
+        $Adyio = $('#Adyio'), $DFS = $('#DFS'), $EZPing = $('#EZPing'),
+        $Kronos = $('#Kronos'), $Gauss = $('#Gauss'), $CPNotebook = $('#CPNotebook');
 
-	// Breakpoints.
-		breakpoints({
-			xlarge:  [ '1281px',  '1680px' ],
-			large:   [ '981px',   '1280px' ],
-			medium:  [ '737px',   '980px'  ],
-			small:   [ '361px',   '736px'  ],
-			xsmall:  [ null,      '360px'  ]
-		});
+    // Breakpoints.
+    breakpoints({
+        xlarge: ['1281px', '1680px'],
+        large: ['981px', '1280px'],
+        medium: ['737px', '980px'],
+        small: ['361px', '736px'],
+        xsmall: [null, '360px']
+    });
 
-	// Play initial animations on page load.
-		$window.on('load', function() {
-			window.setTimeout(function() {
-				$body.removeClass('is-preload');
-			}, 100);
-		});
+    // Play initial animations on page load.
+    $window.on('load', function () {
+        window.setTimeout(function () {
+            $body.removeClass('is-preload');
+        }, 100);
+    });
 
-	// Nav.
-		$nav_links
-			.on('click', function(event) {
+    // Nav.
+    $nav_links
+        .on('click', function (event) {
 
-				var href = $(this).attr('href');
+            var href = $(this).attr('href');
 
-				// Not a panel link? Bail.
-					if (href.charAt(0) != '#'
-					||	$panels.filter(href).length == 0)
-						return;
+            // Not a panel link? Bail.
+            if (href.charAt(0) != '#'
+                || $panels.filter(href).length == 0)
+                return;
 
-				// Prevent default.
-					event.preventDefault();
-					event.stopPropagation();
+            // Prevent default.
+            event.preventDefault();
+            event.stopPropagation();
 
-				// Change panels.
-					if (window.location.hash != href)
-						window.location.hash = href;
+            // Change panels.
+            if (window.location.hash != href)
+                window.location.hash = href;
 
-			});
+        });
 
-	// Panels.
+    // Panels.
 
-		// Initialize.
-			(function() {
+    // Initialize.
+    (function () {
 
-				var $panel, $link;
+        var $panel, $link;
 
-				// Get panel, link.
-					if (window.location.hash) {
+        // Get panel, link.
+        if (window.location.hash) {
 
-				 		$panel = $panels.filter(window.location.hash);
-						$link = $nav_links.filter('[href="' + window.location.hash + '"]');
+            $panel = $panels.filter(window.location.hash);
+            $link = $nav_links.filter('[href="' + window.location.hash + '"]');
 
-					}
+        }
 
-				// No panel/link? Default to first.
-					if (!$panel
-					||	$panel.length == 0) {
+        // No panel/link? Default to first.
+        if (!$panel
+            || $panel.length == 0) {
 
-						$panel = $panels.first();
-						$link = $nav_links.first();
+            $panel = $panels.first();
+            $link = $nav_links.first();
 
-					}
+        }
 
-				// Deactivate all panels except this one.
-					$panels.not($panel)
-						.addClass('inactive')
-						.hide();
+        // Deactivate all panels except this one.
+        $panels.not($panel)
+            .addClass('inactive')
+            .hide();
 
-				// Activate link.
-					$link
-						.addClass('active');
+        // Activate link.
+        $link
+            .addClass('active');
 
-				// Reset scroll.
-					$window.scrollTop(0);
+        // Reset scroll.
+        $window.scrollTop(0);
 
-			})();
+    })();
 
-		// Hashchange event.
-			$window.on('hashchange', function(event) {
+    // Hashchange event.
+    $window.on('hashchange', function (event) {
 
-				var $panel, $link;
+        var $panel, $link;
 
-				// Get panel, link.
-					if (window.location.hash) {
+        // Get panel, link.
+        if (window.location.hash) {
 
-				 		$panel = $panels.filter(window.location.hash);
-						$link = $nav_links.filter('[href="' + window.location.hash + '"]');
+            $panel = $panels.filter(window.location.hash);
+            $link = $nav_links.filter('[href="' + window.location.hash + '"]');
 
-						// No target panel? Bail.
-							if ($panel.length == 0)
-								return;
+            // No target panel? Bail.
+            if ($panel.length == 0)
+                return;
 
-					}
+        }
 
-				// No panel/link? Default to first.
-					else {
+        // No panel/link? Default to first.
+        else {
 
-						$panel = $panels.first();
-						$link = $nav_links.first();
+            $panel = $panels.first();
+            $link = $nav_links.first();
 
-					}
+        }
 
-				// Deactivate all panels.
-					$panels.addClass('inactive');
+        // Deactivate all panels.
+        $panels.addClass('inactive');
 
-				// Deactivate all links.
-					$nav_links.removeClass('active');
+        // Deactivate all links.
+        $nav_links.removeClass('active');
 
-				// Activate target link.
-					$link.addClass('active');
+        // Activate target link.
+        $link.addClass('active');
 
-				// Set max/min height.
-					$main
-						.css('max-height', $main.height() + 'px')
-						.css('min-height', $main.height() + 'px');
+        // Set max/min height.
+        $main
+            .css('max-height', $main.height() + 'px')
+            .css('min-height', $main.height() + 'px');
 
-				// Delay.
-					setTimeout(function() {
+        // Delay.
+        setTimeout(function () {
 
-						// Hide all panels.
-							$panels.hide();
+            // Hide all panels.
+            $panels.hide();
 
-						// Show target panel.
-							$panel.show();
+            // Show target panel.
+            $panel.show();
 
-						// Set new max/min height.
-							$main
-								.css('max-height', $panel.outerHeight() + 'px')
-								.css('min-height', $panel.outerHeight() + 'px');
+            // Set new max/min height.
+            $main
+                .css('max-height', $panel.outerHeight() + 'px')
+                .css('min-height', $panel.outerHeight() + 'px');
 
-						// Reset scroll.
-							$window.scrollTop(0);
+            // Reset scroll.
+            $window.scrollTop(0);
 
-						// Delay.
-							window.setTimeout(function() {
+            // Delay.
+            window.setTimeout(function () {
 
-								// Activate target panel.
-									$panel.removeClass('inactive');
+                // Activate target panel.
+                $panel.removeClass('inactive');
 
-								// Clear max/min height.
-									$main
-										.css('max-height', '')
-										.css('min-height', '');
+                // Clear max/min height.
+                $main
+                    .css('max-height', '')
+                    .css('min-height', '');
 
-								// IE: Refresh.
-									$window.triggerHandler('--refresh');
+                // IE: Refresh.
+                $window.triggerHandler('--refresh');
 
-								// Unlock.
-									locked = false;
+                // Unlock.
+                locked = false;
 
-							}, (breakpoints.active('small') ? 0 : 500));
+            }, (breakpoints.active('small') ? 0 : 500));
 
-					}, 250);
+        }, 250);
 
-			});
-
-	// IE: Fixes.
-		if (browser.name == 'ie') {
-
-			// Fix min-height/flexbox.
-				$window.on('--refresh', function() {
-
-					$wrapper.css('height', 'auto');
-
-					window.setTimeout(function() {
-
-						var h = $wrapper.height(),
-							wh = $window.height();
-
-						if (h < wh)
-							$wrapper.css('height', '100vh');
-
-					}, 0);
-
-				});
-
-				$window.on('resize load', function() {
-					$window.triggerHandler('--refresh');
-				});
-
-			// Fix intro pic.
-				$('.panel.intro').each(function() {
-
-					var $pic = $(this).children('.pic'),
-						$img = $pic.children('img');
-
-					$pic
-						.css('background-image', 'url(' + $img.attr('src') + ')')
-						.css('background-size', 'cover')
-						.css('background-position', 'center');
-
-					$img
-						.css('visibility', 'hidden');
-
-				});
-
-		}
-
-		// Close 
-			$x.on('click', function(e) {
-				console.log("clicked");
-				$overlay.fadeTo('slow', 0);
-				$overlay.css('z-index', -1);
-				$wrapper.fadeTo('fast', 1);
-				$wrapper.css('z-index', 999);
-				$Adyio.css('display', 'none');
-				$DFS.css('display', 'none');
-				$EZPing.css('display', 'none');
-				$Kronos.css('display', 'none');
-				$Gauss.css('display', 'none');
-				$CPNotebook.css('display', 'none');
-			});
-
-
-		// View project
-			$projects.on('click', function(e) {
-				console.log("view project");
-				switch ($(this).attr('id')) {
-					case 'aAdyio':
-						$Adyio.css('display', 'block');
-						break;
-					case 'aDFS':
-						$DFS.css('display', 'block');
-						break;
-					case 'aEZPing':
-						$EZPing.css('display', 'block');
-						break;
-					case 'aKronos':
-						$Kronos.css('display', 'block');
-						break;
-					case 'aGauss':
-						$Gauss.css('display', 'block');
-						break;
-					case 'aCPNotebook':
-						console.log($CPNotebook);
-						$CPNotebook.css('display', 'block');
-						break;
-				}
-				$overlay.fadeTo('slow', 1);
-				$overlay.css('z-index', 999);
-				$wrapper.fadeTo(1, 0);
-				$wrapper.css('z-index', 0);
-			});
-
-
-		particlesJS('particles-js', {
-			"particles": {
-			"number": {
-				"value": 80,
-				"density": {
-				"enable": true,
-				"value_area": 800
-				}
-			},
-			"color": {
-				"value": "#ffffff"
-			},
-			"shape": {
-				"type": "circle",
-				"stroke": {
-				"width": 0,
-				"color": "#000000"
-				},
-				"polygon": {
-				"nb_sides": 5
-				},
-				"image": {
-				"src": "img/github.svg",
-				"width": 100,
-				"height": 100
-				}
-			},
-			"opacity": {
-				"value": 0.5,
-				"random": false,
-				"anim": {
-				"enable": false,
-				"speed": 1,
-				"opacity_min": 0.1,
-				"sync": false
-				}
-			},
-			"size": {
-				"value": 5,
-				"random": true,
-				"anim": {
-				"enable": false,
-				"speed": 40,
-				"size_min": 0.1,
-				"sync": false
-				}
-			},
-			"line_linked": {
-				"enable": true,
-				"distance": 150,
-				"color": "#ffffff",
-				"opacity": 0.4,
-				"width": 1
-			},
-			"move": {
-				"enable": true,
-				"speed": 6,
-				"direction": "none",
-				"random": false,
-				"straight": false,
-				"out_mode": "out",
-				"attract": {
-				"enable": false,
-				"rotateX": 600,
-				"rotateY": 1200
-				}
-			}
-			},
-			"interactivity": {
-			"detect_on": "canvas",
-			"events": {
-				"onhover": {
-				"enable": true,
-				"mode": "repulse"
-				},
-				"onclick": {
-				"enable": true,
-				"mode": "push"
-				},
-				"resize": true
-			},
-			"modes": {
-				"grab": {
-				"distance": 400,
-				"line_linked": {
-					"opacity": 1
-				}
-				},
-				"bubble": {
-				"distance": 400,
-				"size": 40,
-				"duration": 2,
-				"opacity": 8,
-				"speed": 3
-				},
-				"repulse": {
-				"distance": 200
-				},
-				"push": {
-				"particles_nb": 4
-				},
-				"remove": {
-				"particles_nb": 2
-				}
-			}
-			},
-			"retina_detect": true,
-			"config_demo": {
-			"hide_card": false,
-			"background_color": "#b61924",
-			"background_image": "",
-			"background_position": "50% 50%",
-			"background_repeat": "no-repeat",
-			"background_size": "cover"
-			}
-		});
-		
+    });
+
+    // IE: Fixes.
+    if (browser.name == 'ie') {
+
+        // Fix min-height/flexbox.
+        $window.on('--refresh', function () {
+
+            $wrapper.css('height', 'auto');
+
+            window.setTimeout(function () {
+
+                var h = $wrapper.height(),
+                    wh = $window.height();
+
+                if (h < wh)
+                    $wrapper.css('height', '100vh');
+
+            }, 0);
+
+        });
+
+        $window.on('resize load', function () {
+            $window.triggerHandler('--refresh');
+        });
+
+        // Fix intro pic.
+        $('.panel.intro').each(function () {
+
+            var $pic = $(this).children('.pic'),
+                $img = $pic.children('img');
+
+            $pic
+                .css('background-image', 'url(' + $img.attr('src') + ')')
+                .css('background-size', 'cover')
+                .css('background-position', 'center');
+
+            $img
+                .css('visibility', 'hidden');
+
+        });
+
+    }
+
+    // Close
+    $x.on('click', function (e) {
+        console.log("clicked");
+        $overlay.fadeTo('slow', 0);
+        $overlay.css('z-index', -1);
+        $wrapper.fadeTo('fast', 1);
+        $wrapper.css('z-index', 999);
+        $Adyio.css('display', 'none');
+        $DFS.css('display', 'none');
+        $EZPing.css('display', 'none');
+        $Kronos.css('display', 'none');
+        $Gauss.css('display', 'none');
+        $CPNotebook.css('display', 'none');
+    });
+
+
+    // View project
+    $projects.on('click', function (e) {
+        console.log("view project");
+        switch ($(this).attr('id')) {
+            case 'aAdyio':
+                $Adyio.css('display', 'block');
+                break;
+            case 'aDFS':
+                $DFS.css('display', 'block');
+                break;
+            case 'aEZPing':
+                $EZPing.css('display', 'block');
+                break;
+            case 'aKronos':
+                $Kronos.css('display', 'block');
+                break;
+            case 'aGauss':
+                $Gauss.css('display', 'block');
+                break;
+            case 'aCPNotebook':
+                console.log($CPNotebook);
+                $CPNotebook.css('display', 'block');
+                break;
+        }
+        $overlay.fadeTo('slow', 1);
+        $overlay.css('z-index', 999);
+        $wrapper.fadeTo(1, 0);
+        $wrapper.css('z-index', 0);
+    });
+
+
+    particlesJS('particles-js', {
+        "particles": {
+            "number": {
+                "value": 80,
+                "density": {
+                    "enable": true,
+                    "value_area": 800
+                }
+            },
+            "color": {
+                "value": "#ffffff"
+            },
+            "shape": {
+                "type": "circle",
+                "stroke": {
+                    "width": 0,
+                    "color": "#000000"
+                },
+                "polygon": {
+                    "nb_sides": 5
+                },
+                "image": {
+                    "src": "img/github.svg",
+                    "width": 100,
+                    "height": 100
+                }
+            },
+            "opacity": {
+                "value": 0.5,
+                "random": false,
+                "anim": {
+                    "enable": false,
+                    "speed": 1,
+                    "opacity_min": 0.1,
+                    "sync": false
+                }
+            },
+            "size": {
+                "value": 5,
+                "random": true,
+                "anim": {
+                    "enable": false,
+                    "speed": 40,
+                    "size_min": 0.1,
+                    "sync": false
+                }
+            },
+            "line_linked": {
+                "enable": true,
+                "distance": 150,
+                "color": "#ffffff",
+                "opacity": 0.4,
+                "width": 1
+            },
+            "move": {
+                "enable": true,
+                "speed": 6,
+                "direction": "none",
+                "random": false,
+                "straight": false,
+                "out_mode": "out",
+                "attract": {
+                    "enable": false,
+                    "rotateX": 600,
+                    "rotateY": 1200
+                }
+            }
+        },
+        "interactivity": {
+            "detect_on": "canvas",
+            "events": {
+                "onhover": {
+                    "enable": true,
+                    "mode": "repulse"
+                },
+                "onclick": {
+                    "enable": true,
+                    "mode": "push"
+                },
+                "resize": true
+            },
+            "modes": {
+                "grab": {
+                    "distance": 400,
+                    "line_linked": {
+                        "opacity": 1
+                    }
+                },
+                "bubble": {
+                    "distance": 400,
+                    "size": 40,
+                    "duration": 2,
+                    "opacity": 8,
+                    "speed": 3
+                },
+                "repulse": {
+                    "distance": 200
+                },
+                "push": {
+                    "particles_nb": 4
+                },
+                "remove": {
+                    "particles_nb": 2
+                }
+            }
+        },
+        "retina_detect": true,
+        "config_demo": {
+            "hide_card": false,
+            "background_color": "#b61924",
+            "background_image": "",
+            "background_position": "50% 50%",
+            "background_repeat": "no-repeat",
+            "background_size": "cover"
+        }
+    });
+
 })(jQuery);
